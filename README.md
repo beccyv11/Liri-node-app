@@ -25,5 +25,10 @@ Second is when a movie is entered.
 
 
      do-what-it-says
+currently the text file is related to the spotify-this command, however if the text file were changed with a response from one of the other two commands it would run those functions. 
+![Read](/Images/read.png)
 
+Lastly, a log.txt file was added in order to log each command run through the terminal. 
+
+If you would like to run this application on your own you will need your own Spotify API credentials. 
 
