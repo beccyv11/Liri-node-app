@@ -7,9 +7,18 @@ The app has multiple commands, one which will access Spotify API, one Bands in T
 Bellow you will see screen shots of the commands in action. 
 
      concert-this
+![bandTown](/Images/bands.png)
+Format: ![Alt Text](url)
 
      spotify-this-song
 
      movie-this
+![OMDB](/Images/Movie1.png)
+Format: ![Alt Text](url)
+
+![OMDB](/Images/movie2.png)
+Format: ![Alt Text](url)
 
      do-what-it-says
+
+
