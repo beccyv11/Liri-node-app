@@ -13,7 +13,8 @@ No default, must enter an artist name or band name.
 
 
      spotify-this-song
-
+Both input and default.
+![Spotify](/Images/spotify.png)
 
      movie-this
 Fist is the default movie is nothing is entered in the command line. 

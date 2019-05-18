@@ -16,6 +16,9 @@ var command = process.argv[2]
 
 var spotify = new Spotify(keys.spotify);
 var songName = process.argv.slice(3).join(" ");
+if (songName === ""){
+    var songName = "The Sign"
+};
 
 switch(command) {
     case "spotify-this-song":
@@ -32,15 +35,17 @@ switch(command) {
       break;
   }
 
-function runSpotify(songName) {
-
+function runSpotify () {
 spotify
 .search({
- type: 'track', 
- query: 'songName'
+ type: 'track' , 
+ query: songName
  })
 .then(function(response) {
-  console.log(response.tracks.items);
+    console.log(response.tracks.items[0].artists[0].name);
+    console.log(response.tracks.items[0].preview_url);
+    console.log(response.tracks.items[0].album.name);
+//   console.log(response.tracks.items);
 })
 .catch(function(err) {
   console.log(err);
