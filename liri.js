@@ -2,41 +2,66 @@
 
 require("dotenv").config();
 
-
-
-// * `spotify-this-song`
-
 var keys = require ("./keys.js");
 
 var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.spotify);
 
-spotify
-  .search({ type: 'track', query: 'All the Small Things' })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
-
-// * `movie-this`
 var axios = require("axios");
 
+var moment = require('moment');
 
-var movieName = process.argv[2];
+var fs = require("fs");
 
+var command = process.argv[2]
+
+var spotify = new Spotify(keys.spotify);
+var songName = process.argv.slice(3).join(" ");
+
+switch(command) {
+    case "spotify-this-song":
+      runSpotify();
+      break;
+    case `movie-this`:
+      runOmdb();
+      break;
+    case `concert-this`:
+      runBand();
+      break;
+    case 'do-what-it-says':
+      runText();
+      break;
+  }
+
+function runSpotify(songName) {
+
+spotify
+.search({
+ type: 'track', 
+ query: 'songName'
+ })
+.then(function(response) {
+  console.log(response.tracks.items);
+})
+.catch(function(err) {
+  console.log(err);
+});
+}
+
+
+function runOmdb () {
+
+var movieName = process.argv.slice(3).join(" ");
+
+if (movieName === ""){
+    var movieName = "Mr. Nobody"
+};
 
 // Then run a request with axios to the OMDB API with the movie specified
 var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
-
-console.log(queryUrl);
-
 axios
     .get(queryUrl).then(
     function (response){
-        // console.log(response.data);
         console.log(response.data.Title);
         console.log(response.data.Year);
         console.log(response.data.imdbRating);
@@ -46,18 +71,16 @@ axios
         console.log(response.data.Plot);
         console.log(response.data.Actors);
 });
+}
 
-// * `concert-this`
 
-var moment = require('moment');
-var axios = require("axios");
 
-var artist = process.argv[2];
+function runBand () { 
+
+var artist = process.argv.slice(3).join(" ");
     
 var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     
-console.log(queryUrl);
-
 axios 
     .get(queryUrl).then(
     function (response) {
@@ -67,5 +90,23 @@ axios
         console.log(moment(response.data[1].datetime).format('MM/DD/YYYY'));
 });
 
-// * `do-what-it-says`
+}
 
+function runText() { 
+
+fs.readFile("random.txt", "utf8", function(err, data) {
+  if (err) {
+    return console.log(err);
+  }
+
+  // Break the string down by comma separation and store the contents into the output array.
+  var output = data.split(",");
+
+  // Loop Through the newly created output array
+  for (var i = 0; i < output.length; i++) {
+
+    // Print each element (item) of the array/
+    console.log(output[i]);
+  }
+});
+};
